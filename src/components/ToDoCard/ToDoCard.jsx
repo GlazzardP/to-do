@@ -67,13 +67,15 @@ const ToDoCard = () => {
 
   const getItemJsx = () => {
     return todoItems.map(item => (
-      <>
-        <p>{item.startDate}</p>
-        <p>{item.imageURl}</p>
-        <p>{item.completionDate}</p>
-        <p>{item.taskName}</p>
+      <section className={styles.Task}>
+        <p>Task: {item.taskName}</p>
+        <p>Start date: {item.startDate}</p>
+
+        <p>Complete: {item.completionDate}</p>
+
+        <p>Image Link: {item.imageURl}</p>
         <button onClick={() => deleteTask(item)}>Delete task</button>
-      </>
+      </section>
     ));
   };
 
@@ -82,14 +84,14 @@ const ToDoCard = () => {
       <section className={styles.addCard}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Name of task"
           onInput={event =>
             setNewItem({ ...newItem, taskName: event.target.value })
           }
         />
         <input
           type="text"
-          placeholder="Date?"
+          placeholder="When do you aim to complete this task?"
           onInput={event =>
             setNewItem({ ...newItem, startDate: event.target.value })
           }
@@ -103,7 +105,7 @@ const ToDoCard = () => {
         />
         <input
           type="text"
-          placeholder="ImageURL, because why not?"
+          placeholder="Image URL"
           onInput={event =>
             setNewItem({ ...newItem, imageURl: event.target.value })
           }
