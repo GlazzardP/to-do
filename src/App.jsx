@@ -7,7 +7,6 @@ const App = () => {
   return (
     <>
       <ToDoCard />
-      <button>Mark task as complete</button>
     </>
   );
 };

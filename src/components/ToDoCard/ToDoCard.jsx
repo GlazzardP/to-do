@@ -14,6 +14,7 @@ const ToDoCard = () => {
       .then(doc => {
         const retrievedItems = doc.data().items;
         setTodoItems(retrievedItems);
+        // console.log(todoItems);
       })
       .catch(err => {
         console.log(err);
@@ -25,17 +26,31 @@ const ToDoCard = () => {
   }, []);
 
   const addNewTask = () => {
-    // const userId = "barry365";
-
-    const newItem = {
-      crearionDate: "12/12/12/",
-      targetCompletionDate: "11/11/11",
-      taskName: "test",
-      imageURl: ""
-    };
+    const newItems = [...todoItems, newItem];
 
     const newDoc = {
-      items: [...todoItems, newItem]
+      items: newItems
+    };
+
+    firestore
+      .collection("diary")
+      .doc("tasks")
+      .set(newDoc)
+      .then(() => {
+        fetchTodos();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteTask = item => {
+    const newArray = [...todoItems];
+    const position = newArray.indexOf(item);
+    newArray.splice(position, 1);
+
+    const newDoc = {
+      items: newArray
     };
 
     firestore
@@ -53,7 +68,11 @@ const ToDoCard = () => {
   const getItemJsx = () => {
     return todoItems.map(item => (
       <>
-        <p>{item}</p>
+        <p>{item.startDate}</p>
+        <p>{item.imageURl}</p>
+        <p>{item.completionDate}</p>
+        <p>{item.taskName}</p>
+        <button onClick={() => deleteTask(item)}>Delete task</button>
       </>
     ));
   };
@@ -61,13 +80,35 @@ const ToDoCard = () => {
   return (
     <>
       <section className={styles.addCard}>
-        <input type="text" placeholder="Name of your task" />
         <input
           type="text"
-          placeholder="When do you want to have completed your task by?"
+          placeholder="Name"
+          onInput={event =>
+            setNewItem({ ...newItem, taskName: event.target.value })
+          }
         />
-        <input type="text" placeholder="When did you start your task?" />
-        <input type="text" placeholder="ImageURL, because why not?" />
+        <input
+          type="text"
+          placeholder="Date?"
+          onInput={event =>
+            setNewItem({ ...newItem, startDate: event.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="When did you start your task?"
+          onInput={event =>
+            setNewItem({ ...newItem, completionDate: event.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="ImageURL, because why not?"
+          onInput={event =>
+            setNewItem({ ...newItem, imageURl: event.target.value })
+          }
+        />
+
         <button onClick={addNewTask}>Add new task</button>
       </section>
       {getItemJsx()}
