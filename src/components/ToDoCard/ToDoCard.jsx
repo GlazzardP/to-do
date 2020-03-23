@@ -24,17 +24,18 @@ const ToDoCard = () => {
     fetchTodos();
   }, []);
 
-  // const addToDb = () => {
-  // const newItems = [...todoItems, newItem.toLowerCase()];
-
   const addNewTask = () => {
     // const userId = "barry365";
 
-    const newDoc = {
+    const newItem = {
       crearionDate: "12/12/12/",
       targetCompletionDate: "11/11/11",
       taskName: "test",
       imageURl: ""
+    };
+
+    const newDoc = {
+      items: [...todoItems, newItem]
     };
 
     firestore
@@ -49,6 +50,14 @@ const ToDoCard = () => {
       });
   };
 
+  const getItemJsx = () => {
+    return todoItems.map(item => (
+      <>
+        <p>{item}</p>
+      </>
+    ));
+  };
+
   return (
     <>
       <section className={styles.addCard}>
@@ -59,8 +68,9 @@ const ToDoCard = () => {
         />
         <input type="text" placeholder="When did you start your task?" />
         <input type="text" placeholder="ImageURL, because why not?" />
-        <button onClick={addNewTask}>Add new task</button>{" "}
+        <button onClick={addNewTask}>Add new task</button>
       </section>
+      {getItemJsx()}
     </>
   );
 };
