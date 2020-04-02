@@ -76,27 +76,18 @@ const ToDoCard = props => {
   const getItemJsx = () => {
     return todoItems.map(item => (
       <div className={styles.card}>
-        <Card>
-          {/* <section> */}
-          <Card.Body>
-            <Card.Img variant="top" src={item.imageURL} />
-
-            <Card.Title>{item.taskName}</Card.Title>
-            <Card.Text></Card.Text>
-
-            <p>Start date: {item.startDate}</p>
-
-            <p>Complete: {item.completionDate}</p>
-
-            {/* <p>Image Link: {item.imageURl}</p> */}
-            {/* {console.log(item)} */}
-            <button onClick={() => deleteTask(item)}>Delete task</button>
-            <button onClick={() => completeTask(item)}>
-              Complete(DL) task
-            </button>
-          </Card.Body>
-          {/* </section> */}
-        </Card>
+        {/* <Card> */}
+        {/* <Card.Body> */}
+        <Card.Img variant="top" src={item.imageURL} />
+        <Card.Title>{item.taskName}</Card.Title>
+        <p>Start date: {item.startDate}</p>
+        <p>Complete: {item.completionDate}</p>
+        {/* <p>Image Link: {item.imageURl}</p> */}
+        {/* {console.log(item)} */}
+        <button onClick={() => deleteTask(item)}>Delete task</button>
+        <button onClick={() => completeTask(item)}>Complete(DL) task</button>
+        {/* </Card.Body> */}
+        {/* </Card> */}
       </div>
     ));
   };

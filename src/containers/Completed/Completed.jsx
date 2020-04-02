@@ -7,7 +7,7 @@ const Completed = props => {
   return (
     <>
       {completed.map(item => {
-        return <div>{item.taskName}</div>;
+        return <div className={styles.indCom}>{item.taskName}</div>;
       })}
     </>
   );
