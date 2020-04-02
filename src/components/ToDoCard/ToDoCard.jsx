@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ToDoCard.module.scss";
 import { firestore } from "../../firebase";
+import { Card } from "react-bootstrap";
 
-const ToDoCard = () => {
+const ToDoCard = props => {
+  const { markCardAsComplete, completed } = props;
   const [todoItems, setTodoItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
@@ -65,17 +67,37 @@ const ToDoCard = () => {
       });
   };
 
+  const completeTask = item => {
+    const updatedFavourites = [...completed, item];
+    console.log(updatedFavourites);
+    markCardAsComplete(updatedFavourites);
+  };
+
   const getItemJsx = () => {
     return todoItems.map(item => (
-      <section className={styles.Task}>
-        <p>Task: {item.taskName}</p>
-        <p>Start date: {item.startDate}</p>
+      <div className={styles.card}>
+        <Card>
+          {/* <section> */}
+          <Card.Body>
+            <Card.Img variant="top" src={item.imageURL} />
 
-        <p>Complete: {item.completionDate}</p>
+            <Card.Title>{item.taskName}</Card.Title>
+            <Card.Text></Card.Text>
 
-        <p>Image Link: {item.imageURl}</p>
-        <button onClick={() => deleteTask(item)}>Delete task</button>
-      </section>
+            <p>Start date: {item.startDate}</p>
+
+            <p>Complete: {item.completionDate}</p>
+
+            {/* <p>Image Link: {item.imageURl}</p> */}
+            {/* {console.log(item)} */}
+            <button onClick={() => deleteTask(item)}>Delete task</button>
+            <button onClick={() => completeTask(item)}>
+              Complete(DL) task
+            </button>
+          </Card.Body>
+          {/* </section> */}
+        </Card>
+      </div>
     ));
   };
 
