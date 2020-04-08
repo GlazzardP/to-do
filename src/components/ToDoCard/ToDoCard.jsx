@@ -15,12 +15,13 @@ const ToDoCard = props => {
 
   const getItemJsx = () => {
     return toDoItems.map(item => (
+      
       <div className={styles.card}>
 
         <h3>{item.taskName}</h3>
-        <p>Complete: {item.completionDate}</p>
-        <p>Importance:  {item.importance}</p>
-        <path onClick={() => deleteTask(item)}>Completed task</path>
+        <p>{item.completionDate}</p>
+        {/* <p>Importance:  {item.importance}</p> */}
+        <span className-={styles.completeButton} onClick={() => deleteTask(item)}>Mark task as complete</span>
         {/* <path onClick={() => updateCompleted(item)}>Complete(DL) task</path> */}
 
       </div>
@@ -28,9 +29,9 @@ const ToDoCard = props => {
   };
 
   return (
-    <>
+    <section className={styles.cards}>
       {getItemJsx()}
-    </>
+    </section>
   );
 };
 

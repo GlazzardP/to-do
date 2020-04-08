@@ -1,8 +1,27 @@
 .card {
   color: whitesmoke;
-  height: 200px;
+  min-height: 150px;
+  max-height: min-content;
   width: 150px;
-  // border: solid white 2px;
   margin: 5px;
   text-align: center;
+  border: solid red 2px;
+}
+
+.cards { 
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.completeButton { 
+  background-color: whitesmoke;
+  color: rgb(17, 1, 1);
+  border: solid whitesmoke 2px;
+  
+  .completeButton:hover {
+    cursor: pointer;
+  }
 }
