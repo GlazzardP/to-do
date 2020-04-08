@@ -1,16 +1,22 @@
 .addCard { 
-    position: relative;
+    position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
     border: solid red 2px;
     display: flex;
     flex-direction: column;
+    width: 20%;
+
 
     input { 
         margin: 5px;
+        height: 20px; 
     }
 
     p { 
+        margin: 10px auto;
         border: solid blue 2px;
+        background-color: whitesmoke;
+        width: 100px;
     }
 }

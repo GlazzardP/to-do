@@ -1,16 +1,15 @@
 import React, { useEffect, useState} from "react";
 import { firestore } from "./firebase";
 import styles from "./App.module.scss";
+
 import ToDoCard from "./components/ToDoCard";
 import Completed from "./containers/Completed";
 import ToDoForm from "./containers/ToDoForm";
-{/* <style> @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200&display=swap'); </style> */}
-
 
 
 const App = () => {
   const [completed, markCardAsComplete] = useState([]);
-  const [todoItems, setTodoItems] = useState([]);
+  const [toDoItems, setTodoItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
   const fetchTodos = () => {
@@ -33,7 +32,7 @@ const App = () => {
   }, []);
 
   const addNewTask = () => {
-    const newItems = [...todoItems, newItem];
+    const newItems = [...toDoItems, newItem];
 
     const newDoc = {
       items: newItems
@@ -53,7 +52,7 @@ const App = () => {
 
 
   const deleteTask = item => {
-    const newArray = [...todoItems];
+    const newArray = [...toDoItems];
     const position = newArray.indexOf(item);
     newArray.splice(position, 1);
 
@@ -73,6 +72,8 @@ const App = () => {
       });
   };
 
+  const toDoCardJsx = toDoItems.length ? <ToDoCard markCardAsComplete={markCardAsComplete} completed={completed} addNewTask={addNewTask} toDoItems={toDoItems} deleteTask={deleteTask} /> : null ;
+
   // const completeTask = item => {
   //   const updatedFavourites = [...completed, item];
   //   console.log(updatedFavourites);
@@ -82,8 +83,8 @@ const App = () => {
   return (
     <article className={styles.background}>
       <h1>To Do</h1>
-      <ToDoForm setNewItem={setNewItem} newItem={newItem} addNewTask={addNewTask}/>
-      <ToDoCard markCardAsComplete={markCardAsComplete} completed={completed} addNewTask={addNewTask} todoItems={todoItems} deleteTask={deleteTask}/>
+      <ToDoForm setNewItem={setNewItem} newItem={newItem} addNewTask={addNewTask} completed={completed} />
+      {toDoCardJsx}
       <Completed completed={completed} />
     </article>
   );
